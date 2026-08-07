@@ -51,8 +51,8 @@ export default function HeroSlider({ articles }: HeroSliderProps) {
                     className="absolute inset-0"
                 >
                     <Image
-                        src={getImageUrl(article?.imageUrl)}
-                        alt={article?.title}
+                        src={getImageUrl(article?.imageUrl)!}
+                        alt={article?.title || "Mazlis News Article"}
                         fill
                         className="object-cover"
                         priority
@@ -61,8 +61,8 @@ export default function HeroSlider({ articles }: HeroSliderProps) {
             </AnimatePresence>
 
             {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-            <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/40 to-transparent opacity-90" />
+            <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#09090b]/60 to-transparent pointer-events-none" />
 
             {/* Content Container */}
             <div className="absolute bottom-28 left-6 right-6 md:left-12 md:right-12 z-20 flex flex-col gap-6 max-w-4xl">
@@ -90,11 +90,11 @@ export default function HeroSlider({ articles }: HeroSliderProps) {
                                 href={`/articles/${article?.slug}-${article?.id}`}
                                 className="group flex items-center gap-4 py-1"
                             >
-                                <span className="text-sm font-black text-white uppercase tracking-widest">
+                                <span className="text-sm font-black text-white uppercase tracking-[0.25em]">
                                     Read More
                                 </span>
-                                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover:bg-white group-hover:text-zinc-900 transition-all duration-300">
-                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-zinc-900 group-hover:scale-105 transition-all duration-500">
+                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-500" />
                                 </div>
                             </Link>
 
@@ -123,15 +123,15 @@ export default function HeroSlider({ articles }: HeroSliderProps) {
                 <div className="flex gap-2">
                     <button
                         onClick={prevSlide}
-                        className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-zinc-900 transition-all active:scale-90"
+                        className="p-4 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-zinc-900 hover:scale-105 transition-all duration-500 active:scale-95"
                     >
-                        <ChevronLeft size={20} />
+                        <ChevronLeft size={24} strokeWidth={1.5} />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-zinc-900 transition-all active:scale-90"
+                        className="p-4 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-zinc-900 hover:scale-105 transition-all duration-500 active:scale-95"
                     >
-                        <ChevronRight size={20} />
+                        <ChevronRight size={24} strokeWidth={1.5} />
                     </button>
                 </div>
             </div>

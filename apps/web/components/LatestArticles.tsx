@@ -42,7 +42,7 @@ export default function LatestArticles() {
                             </div>
 
                             <Link href={`/articles/${leadArticle.slug}-${leadArticle._id}`} className="group">
-                                <h1 className="text-4xl md:text-[5.5rem] xl:text-[6.5rem] font-black font-outfit tracking-tighter text-zinc-900 dark:text-zinc-100 leading-[0.9] group-hover:text-zinc-600 dark:hover:text-zinc-400 dark:text-zinc-400 transition-colors uppercase">
+                                <h1 className="text-4xl md:text-[5.5rem] xl:text-[6.5rem] font-black font-outfit tracking-tighter text-zinc-900 dark:text-zinc-100 leading-[0.9] group-hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors uppercase">
                                     {leadArticle.title.split(' ').map((word, i) => (
                                         <React.Fragment key={i}>
                                             {word}{i === 1 ? <br /> : ' '}
@@ -51,7 +51,7 @@ export default function LatestArticles() {
                                 </h1>
                             </Link>
 
-                            <div 
+                            <div
                                 className="text-zinc-500 text-lg md:text-xl leading-relaxed max-w-xl font-light line-clamp-3"
                                 dangerouslySetInnerHTML={{ __html: leadArticle.content.substring(0, 200) + '...' }}
                             />
@@ -64,14 +64,14 @@ export default function LatestArticles() {
                                     {leadArticle.author?.fullName || 'Anonymous'}
                                 </span>
                             </div>
-                            <div className="w-[1px] h-8 bg-zinc-200 dark:bg-zinc-800"></div>
+                            <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-800"></div>
                             <div className="flex flex-col gap-1.5">
                                 <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-400">Published</span>
                                 <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
                                     {formatDistanceToNow(new Date(leadArticle.createdAt))} ago
                                 </span>
                             </div>
-                            <div className="w-[1px] h-8 bg-zinc-200 dark:bg-zinc-800 hidden sm:block"></div>
+                            <div className="w-px h-8 bg-zinc-200 dark:bg-zinc-800 hidden sm:block"></div>
                             <Link href={`/articles/${leadArticle.slug}-${leadArticle._id}`} className="hidden sm:flex items-center gap-2 group ml-auto">
                                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-500 transition-colors">Read Report</span>
                                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -80,10 +80,10 @@ export default function LatestArticles() {
                     </div>
 
                     <div className="lg:col-span-5 order-1 lg:order-2 relative">
-                        <Link href={`/articles/${leadArticle.slug}-${leadArticle._id}`} className="block relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-[4/5] md:aspect-[3/4] rounded-2xl md:rounded-4xl">
+                        <Link href={`/articles/${leadArticle.slug}-${leadArticle._id}`} className="block relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 aspect-4/5 md:aspect-3/4 rounded-2xl md:rounded-4xl">
                             <img
-                                src={getImageUrl(leadArticle.image)}
-                                alt={leadArticle.title}
+                                src={getImageUrl(leadArticle.image)!}
+                                alt={leadArticle.title || "Mazlis News Lead Article"}
                                 className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 ease-out"
                             />
                         </Link>
@@ -95,7 +95,7 @@ export default function LatestArticles() {
             </section>
 
             {/* Divider */}
-            <div className="w-full h-[1px] bg-zinc-200 dark:bg-zinc-800 my-16"></div>
+            <div className="w-full h-px bg-zinc-200 dark:bg-zinc-800 my-16"></div>
 
             {/* Secondary Articles Section (Breaking News on Mobile) */}
             {secondaryArticles.length > 0 && (
@@ -109,7 +109,7 @@ export default function LatestArticles() {
 
                     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 lg:gap-14">
                         {secondaryArticles.map((item) => (
-                            <ArticleCard 
+                            <ArticleCard
                                 key={item._id}
                                 article={{
                                     id: item._id,

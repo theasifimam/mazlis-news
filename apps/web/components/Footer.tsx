@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className="hidden md:block w-full bg-[#fcfcfc] dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 pt-24 pb-12 px-6 lg:px-12 border-t border-zinc-200 dark:border-zinc-800 mt-auto transition-colors duration-300">
-            <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-8 border-b border-zinc-200 dark:border-zinc-800 pb-16">
+        <footer className="hidden md:block w-full bg-background text-foreground pt-24 pb-12 px-6 lg:px-12 border-t border-zinc-200/50 dark:border-zinc-800/50 mt-auto transition-colors duration-500">
+            <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-8 border-b border-zinc-200/50 dark:border-zinc-800/50 pb-16">
 
                 {/* Brand & Description */}
                 <div className="flex flex-col gap-6 max-w-sm">

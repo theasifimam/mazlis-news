@@ -1,94 +1,112 @@
 "use client";
 
-import React, { useMemo } from 'react';
-import dynamic from 'next/dynamic';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { useGetArticlesQuery } from '@/lib/api/articlesApi';
-import { format } from 'date-fns';
+import React, { useState, useMemo } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import SpotlightHero from "@/components/home/SpotlightHero";
+import CategoryFilterBar from "@/components/home/CategoryFilterBar";
+import BreakingNews from "@/components/home/BreakingNews";
+import TechnicalAnalysis from "@/components/home/TechnicalAnalysis";
+import NewsletterBanner from "@/components/home/NewsletterBanner";
+import { useGetArticlesQuery } from "@/lib/api/articlesApi";
+import { format } from "date-fns";
 
-// Dynamic imports for improved initial load performance
-// HeroSlider is heavy due to Framer Motion and images, kept as dynamic
-const HeroSlider = dynamic(() => import('@/components/HeroSlider'), {
-  ssr: false,
-  loading: () => <div className="w-full h-[75vh] md:h-[85vh] bg-zinc-900 animate-pulse" />
-});
-
-const BreakingNews = dynamic(() => import('@/components/home/BreakingNews'), { 
-  ssr: false,
-  loading: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-20">
-      {[1, 2, 3].map(i => (
-        <div key={i} className="flex flex-col gap-4 animate-pulse">
-           <div className="aspect-[4/3] w-full rounded-[1.5rem] bg-zinc-100 dark:bg-zinc-900" />
-           <div className="h-6 w-3/4 bg-zinc-100 dark:bg-zinc-900 rounded-md" />
-           <div className="h-4 w-1/2 bg-zinc-100 dark:bg-zinc-900 rounded-md" />
-        </div>
-      ))}
-    </div>
-  )
-});
-
-const TechnicalAnalysis = dynamic(() => import('@/components/home/TechnicalAnalysis'), { 
-  ssr: false 
-});
+const CATEGORIES = [
+  "ALL",
+  "INVESTIGATION",
+  "TECHNOLOGY",
+  "PHILOSOPHY",
+  "ARCHITECTURE",
+  "SYSTEMS",
+];
 
 export default function HomePage() {
-  const { data: response, isLoading } = useGetArticlesQuery({ limit: 12 });
+  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const { data: response, isLoading } = useGetArticlesQuery({ limit: 16 });
   const articles = response?.data || [];
 
-  const trendingArticles = useMemo(() => 
-    articles.slice(0, 5).map((a: any) => ({
+  const formattedArticles = useMemo(() => {
+    return articles.map((a: any) => ({
+      ...a,
       id: a._id,
-      slug: a.slug,
-      title: a.title,
-      category: a.topic?.[0]?.name || 'INVESTIGATION',
+      category: a.topic?.[0]?.name || "INVESTIGATION",
       imageUrl: a.image,
-      author: a.author?.fullName || 'Anonymous',
-      date: format(new Date(a.createdAt), 'MMM dd, yyyy')
-    })), [articles]);
+      author: a.author?.fullName || "Anonymous",
+      date: a.createdAt
+        ? format(new Date(a.createdAt), "MMM dd, yyyy")
+        : "Recent",
+    }));
+  }, [articles]);
 
-  const breakingNews = useMemo(() => articles.slice(0, 6), [articles]);
-  const mostReadArticles = useMemo(() => 
-    [...articles].sort((a: any, b: any) => (b.readCount || 0) - (a.readCount || 0)).slice(0, 3),
-  [articles]);
+  const leadArticle = formattedArticles[0];
+  const trendingArticles = useMemo(
+    () => formattedArticles.slice(1, 5),
+    [formattedArticles],
+  );
+
+  const mostReadArticles = useMemo(() => {
+    return [...formattedArticles]
+      .sort((a: any, b: any) => (b.readCount || 0) - (a.readCount || 0))
+      .slice(0, 3);
+  }, [formattedArticles]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500">
       <Header />
 
-      <main className="flex-1 w-full pb-32 md:pb-16 flex flex-col">
-        {/* Sliding Hero Section */}
-        <section className="w-full">
-          {!isLoading ? (
-            <HeroSlider articles={trendingArticles} />
-          ) : (
-            <div className="w-full h-[75vh] md:h-[85vh] bg-zinc-100 dark:bg-zinc-900 animate-pulse" />
-          )}
-        </section>
-
-        {/* Content Island */}
-        <div className="relative w-full bg-background rounded-t-[2.5rem] md:rounded-t-[4rem] -mt-12 z-30 pt-16 flex flex-col items-center">
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
-            
-            {/* Breaking News Section - Deferred Loading */}
-            {!isLoading ? (
-              <BreakingNews articles={breakingNews} />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-20">
-                {[1, 2, 3, 4, 5, 6].map(i => (
-                  <div key={i} className="flex flex-col gap-4 animate-pulse">
-                    <div className="aspect-[4/3] w-full rounded-[1.5rem] bg-zinc-50 dark:bg-zinc-900/50" />
-                    <div className="h-6 w-3/4 bg-zinc-50 dark:bg-zinc-900/50 rounded-md" />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Technical Section */}
-            {!isLoading && <TechnicalAnalysis articles={mostReadArticles} />}
-
+      <main className="flex-1 w-full pb-20 flex flex-col">
+        {/* Spotlight Hero Section */}
+        {!isLoading && leadArticle ? (
+          <SpotlightHero
+            leadArticle={leadArticle}
+            trendingArticles={trendingArticles}
+          />
+        ) : (
+          <div className="max-w-350 mx-auto px-6 lg:px-12 w-full pt-28 mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 h-137.5">
+              <div className="lg:col-span-7 rounded-[2.5rem] bg-zinc-100 dark:bg-zinc-900 animate-pulse" />
+              <div className="lg:col-span-5 rounded-[2.5rem] bg-zinc-100 dark:bg-zinc-900 animate-pulse" />
+            </div>
           </div>
+        )}
+
+        {/* Content Island with Topic Filtering */}
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full pt-10 flex flex-col gap-16">
+          {/* Interactive Category Filter Pills */}
+          <CategoryFilterBar
+            categories={CATEGORIES}
+            activeCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
+
+          {/* Breaking / Main Articles Grid */}
+          {!isLoading ? (
+            <BreakingNews
+              articles={formattedArticles}
+              selectedCategory={selectedCategory}
+            />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="flex flex-col gap-4 animate-pulse">
+                  <div className="aspect-4/3 w-full rounded-4xl bg-zinc-100 dark:bg-zinc-900" />
+                  <div className="h-6 w-3/4 bg-zinc-100 dark:bg-zinc-900 rounded-md" />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Newsletter Banner */}
+          <div className="py-8">
+            <NewsletterBanner />
+          </div>
+
+          {/* Intelligence & Technical Analysis Section */}
+          {!isLoading && (
+            <div className="pb-16 border-t border-zinc-200/50 dark:border-zinc-800/50 pt-16">
+              <TechnicalAnalysis articles={mostReadArticles} />
+            </div>
+          )}
         </div>
       </main>
 

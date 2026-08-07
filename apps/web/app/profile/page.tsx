@@ -48,33 +48,23 @@ export default function ProfilePage() {
             <Header />
 
             <main className="flex-1 w-full flex flex-col">
-                {/* Profile Hero Section */}
-                <section className="relative w-full h-[70vh] md:h-[60vh] overflow-hidden bg-zinc-900">
-                    <Image
-                        src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=2000"
-                        alt="Profile Background"
-                        fill
-                        className="object-cover opacity-60 grayscale"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                    <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
-
-                    {/* Integrated Profile Info or Auth CTA */}
-                    <div className="absolute bottom-24 left-6 right-6 md:left-12 md:right-12 z-20">
+                {/* Profile Header Section */}
+                <section className="relative w-full pt-32 pb-12 px-6 lg:px-12 bg-zinc-50 dark:bg-zinc-900/30 border-b border-zinc-200/50 dark:border-zinc-800/50 flex flex-col items-center">
+                    <div className="w-full max-w-[1400px]">
                         {!isInitialized ? (
-                            <div className="flex flex-col items-start gap-8 max-w-2xl">
-                                <div className="flex flex-col gap-4 w-full">
-                                    <div className="h-16 md:h-24 w-64 bg-white/10 rounded-2xl animate-pulse" />
-                                    <div className="h-6 w-96 bg-white/10 rounded-xl animate-pulse" />
+                            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+                                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-zinc-200 dark:bg-zinc-800 animate-pulse" />
+                                <div className="flex flex-col gap-4 w-full pt-2">
+                                    <div className="h-10 w-48 bg-zinc-200 dark:bg-zinc-800 rounded-xl animate-pulse" />
+                                    <div className="h-5 w-64 bg-zinc-200 dark:bg-zinc-800 rounded-md animate-pulse" />
                                 </div>
                             </div>
                         ) : isAuthenticated && user ? (
-                            <div className="flex flex-col md:flex-row items-start gap-6">
+                            <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    className="relative w-20 h-20 md:w-24 md:h-24 rounded-[2rem] overflow-hidden border-4 border-white/20 shadow-2xl"
+                                    className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-lg border-2 border-white dark:border-zinc-800"
                                 >
                                     <Image
                                         src={user?.avatar
@@ -87,17 +77,17 @@ export default function ProfilePage() {
                                     />
                                 </motion.div>
 
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col items-center md:items-start gap-3 flex-1 text-center md:text-left">
                                     <div className="flex items-center gap-3">
-                                        <h1 className="text-3xl md:text-5xl font-bold text-white font-outfit tracking-tight">
+                                        <h1 className="text-3xl md:text-5xl font-bold font-outfit tracking-tight text-zinc-900 dark:text-white">
                                             {user.fullName}
                                         </h1>
-                                        <Link href="/profile/settings" className="p-2 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-zinc-900 transition-all">
+                                        <Link href="/profile/settings" className="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-all">
                                             <Edit3 size={18} />
                                         </Link>
                                     </div>
 
-                                    <div className="flex flex-wrap items-center gap-4 text-white/60 text-sm font-medium">
+                                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-zinc-500 dark:text-zinc-400 text-sm font-medium">
                                         <span className="flex items-center gap-1.5">
                                             <MapPin size={14} /> {user.location || "Location Undeclared"}
                                         </span>
@@ -107,25 +97,25 @@ export default function ProfilePage() {
                                     </div>
 
                                     {user.bio && (
-                                        <p className="text-white/70 max-w-xl text-sm font-medium mt-2 line-clamp-2">
+                                        <p className="text-zinc-600 dark:text-zinc-300 max-w-2xl text-sm md:text-base font-medium mt-2">
                                             {user.bio}
                                         </p>
                                     )}
 
                                     {user.socials && (Object.values(user.socials).some(link => link)) && (
-                                        <div className="flex md:justify-start justify-center items-center gap-4 mt-2">
+                                        <div className="flex justify-center md:justify-start items-center gap-4 mt-4">
                                             {user.socials.twitter && (
-                                                <a href={user.socials.twitter.startsWith('http') ? user.socials.twitter : `https://twitter.com/${user.socials.twitter}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all">
+                                                <a href={user.socials.twitter.startsWith('http') ? user.socials.twitter : `https://twitter.com/${user.socials.twitter}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-zinc-200/50 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-all">
                                                     <Twitter size={16} />
                                                 </a>
                                             )}
                                             {user.socials.linkedin && (
-                                                <a href={user.socials.linkedin.startsWith('http') ? user.socials.linkedin : `https://www.linkedin.com/in/${user.socials.linkedin}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all">
+                                                <a href={user.socials.linkedin.startsWith('http') ? user.socials.linkedin : `https://www.linkedin.com/in/${user.socials.linkedin}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-zinc-200/50 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-all">
                                                     <Linkedin size={16} />
                                                 </a>
                                             )}
                                             {user.socials.website && (
-                                                <a href={user.socials.website.startsWith('http') ? user.socials.website : `https://${user.socials.website}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all">
+                                                <a href={user.socials.website.startsWith('http') ? user.socials.website : `https://${user.socials.website}`} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-zinc-200/50 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-all">
                                                     <Globe size={16} />
                                                 </a>
                                             )}
@@ -133,28 +123,13 @@ export default function ProfilePage() {
                                     )}
                                 </div>
                             </div>
-                        ) : (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="flex flex-col items-start gap-8 max-w-2xl"
-                            >
-                                <div className="flex flex-col gap-4">
-                                    <h1 className="text-4xl md:text-7xl font-bold text-white font-outfit tracking-tighter leading-none">
-                                        Join the <br />Collective.
-                                    </h1>
-                                    <p className="text-white/60 text-lg md:text-xl font-medium tracking-tight">
-                                        Secure your access to deep-dive investigations and personalized intelligence.
-                                    </p>
-                                </div>
-                            </motion.div>
-                        )}
+                        ) : null}
                     </div>
                 </section>
 
-                {/* Content Island with Top Radius */}
-                <div className="relative w-full bg-background rounded-t-[2.5rem] md:rounded-t-[4rem] -mt-12 z-30 pt-10 flex flex-col items-center">
-                    <div className="w-full max-w-[1400px] px-6 lg:px-12 min-h-[40vh]">
+                {/* Content Island */}
+                <div className="w-full flex flex-col items-center">
+                    <div className="w-full max-w-[1400px] px-6 lg:px-12 pt-8 min-h-[40vh]">
                         {isAuthenticated ? (
                             <>
                                 {/* Tab Navigation (Pill-based) */}
