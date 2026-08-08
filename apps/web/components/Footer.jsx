@@ -3,51 +3,52 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="hidden md:block w-full bg-background text-foreground pt-24 pb-12 px-6 lg:px-12 border-t border-zinc-200/50 dark:border-zinc-800/50 mt-auto transition-colors duration-500">
-            <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-8 border-b border-zinc-200/50 dark:border-zinc-800/50 pb-16">
+    <footer className="w-full bg-white dark:bg-[#191f13] text-[#1b2111] dark:text-[#f2f5e8] pt-12 pb-8 px-6 lg:px-12 border-t border-[#e1e7d4] dark:border-[#2d3624] mt-auto rounded-t-[2.5rem] shadow-sm">
+      <div className="max-w-350 mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 border-b border-[#e1e7d4] dark:border-[#2d3624] pb-10">
 
-                {/* Brand & Description */}
-                <div className="flex flex-col gap-6 max-w-sm">
-                    <Link href="/" className="font-outfit font-black text-3xl tracking-tighter text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors">
-                        MAZLIS.
-                    </Link>
-                    <p className="text-sm font-light leading-relaxed text-zinc-500 dark:text-zinc-400 italic">
-                        "A weekly publication dedicated to the intersection of architecture, technology, and political philosophy. Focusing on the systems that define our reality."
-                    </p>
-                </div>
+        {/* Brand */}
+        <div className="flex flex-col gap-4 max-w-sm">
+          <Link href="/" className="flex items-center gap-2.5">
+            <span className="w-8 h-8 rounded-full bg-[#b6c173] text-[#1b2111] flex items-center justify-center font-bold text-xs shadow-md shadow-[#b6c173]/25">
+              M
+            </span>
+            <span className="font-outfit font-black text-2xl tracking-tight text-[#1b2111] dark:text-[#f2f5e8]">
+              MAZLIS<span className="text-[#8e9947] dark:text-[#b6c173]">.</span>
+            </span>
+          </Link>
+          <p className="text-xs font-medium text-[#788544] dark:text-[#a0ab6c] leading-relaxed">
+            An independent publication dedicated to systems architecture, technology, and intelligence.
+          </p>
+        </div>
 
-                {/* Minimal Navigation */}
-                <div className="flex flex-col sm:flex-row gap-16 sm:gap-24 lg:gap-32">
-                    <div className="flex flex-col gap-6">
-                        <h4 className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500">Directory</h4>
-                        <nav className="flex flex-col gap-4 text-sm font-medium transition-all">
-                             <Link href="/about" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">About Us</Link>
-                             <Link href="/contact" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">Contact</Link>
-                             <Link href="/legal/faq" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">Help & FAQ</Link>
-                         </nav>
-                     </div>
- 
-                     <div className="flex flex-col gap-6 font-sans">
-                         <h4 className="text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-500">Legal Policies</h4>
-                         <nav className="flex flex-col gap-4 text-sm font-medium transition-all">
-                             <Link href="/legal/privacy-policy" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">Privacy Policy</Link>
-                             <Link href="/legal/terms-conditions" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">Terms of Service</Link>
-                             <Link href="/legal/cookie-usage" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">Cookie Usage</Link>
-                         </nav>
-                     </div>
-                </div>
+        {/* Dynamic Navigation */}
+        <div className="flex flex-wrap gap-8 sm:gap-16">
+          <div className="flex flex-col gap-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#8e9947] dark:text-[#b6c173]">Directory</h4>
+            <nav className="flex flex-col gap-2 text-xs font-semibold">
+              <Link href="/about" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">About Us</Link>
+              <Link href="/contact" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">Contact</Link>
+              <Link href="/legal/faq" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">Help & FAQ</Link>
+            </nav>
+          </div>
 
-            </div>
+          <div className="flex flex-col gap-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#8e9947] dark:text-[#b6c173]">Legal Policies</h4>
+            <nav className="flex flex-col gap-2 text-xs font-semibold">
+              <Link href="/legal/privacy-policy" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">Privacy Policy</Link>
+              <Link href="/legal/terms-conditions" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">Terms of Service</Link>
+              <Link href="/legal/cookie-usage" className="text-[#4a5426] dark:text-[#c4cb9a] hover:text-[#8e9947] dark:hover:text-[#b6c173] transition-colors">Cookie Usage</Link>
+            </nav>
+          </div>
+        </div>
 
-            {/* Bottom Bar */}
-            <div className="max-w-[1400px] mx-auto pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-bold uppercase tracking-[0.25em] text-zinc-400 dark:text-zinc-600">
-                <p>&copy; {new Date().getFullYear()} MAZLIS NEWS. ALL RIGHTS RESERVED.</p>
-                <div className="flex items-center gap-6">
-                    <span className="text-zinc-500 dark:text-zinc-500">Global Edition</span>
-                    <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
-                    <span className="text-zinc-500 dark:text-zinc-500">Independent Journalism</span>
-                </div>
-            </div>
-        </footer>);
+      </div>
 
+      {/* Bottom Status Bar */}
+      <div className="max-w-350 mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-[#788544] dark:text-[#a0ab6c]">
+        <p>&copy; {new Date().getFullYear()} MAZLIS NEWS. All rights reserved.</p>
+        <span className="text-xs text-[#788544] dark:text-[#a0ab6c]">Pixel Tablet UI • #B6C173 Accent</span>
+      </div>
+    </footer>
+  );
 }

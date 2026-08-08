@@ -33,7 +33,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center gap-6">
                 <div className="w-16 h-16 border-4 border-zinc-900 border-t-[#E2FF54] rounded-full animate-spin"></div>
-                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-600 italic">Synchronizing Global Intel...</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-600 italic">Loading Dashboard...</span>
             </div>);
 
   }
@@ -41,10 +41,10 @@ export default function DashboardPage() {
   if (isError) {
     return (
       <div className="min-h-[80vh] flex flex-col items-center justify-center gap-6">
-                <h3 className="text-xl font-black uppercase tracking-tighter">Handshake Protocol Failed</h3>
-                <p className="text-sm text-zinc-500 font-bold uppercase tracking-widest">Unable to establish connection with the central node.</p>
+                <h3 className="text-xl font-black uppercase tracking-tighter">Connection Failed</h3>
+                <p className="text-sm text-zinc-500 font-bold uppercase tracking-widest">Unable to connect to backend server.</p>
                 <Button onClick={() => refetch()} variant="outline" className="rounded-full px-8 py-6 uppercase font-black tracking-widest text-[10px]">
-                    Retry Identification
+                    Try Again
                 </Button>
             </div>);
 
@@ -57,10 +57,10 @@ export default function DashboardPage() {
                 <div className="flex flex-col gap-3 md:gap-4">
                     <div className="flex items-center gap-4">
                         <span className="w-12 h-[1px] bg-zinc-300 dark:bg-zinc-800"></span>
-                        <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-500 italic">Central Dashboard</span>
+                        <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-500 italic">Dashboard</span>
                     </div>
                     <h1 className="text-4xl sm:text-5xl md:text-7xl font-black font-outfit uppercase tracking-tighter text-zinc-900 dark:text-white leading-[0.9]">
-                        Mazlis Overview.
+                        Overview.
                     </h1>
                 </div>
                 <Button
@@ -69,7 +69,7 @@ export default function DashboardPage() {
           
                     <Link href="/articles/new">
                         <Plus size={18} />
-                        Write An Article
+                        Write Article
                     </Link>
                 </Button>
             </section>
@@ -113,7 +113,7 @@ export default function DashboardPage() {
                 {/* Recent Activity */}
                 <section className="lg:col-span-8 flex flex-col gap-8">
                     <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-6">
-                        <h2 className="text-2xl font-black font-outfit uppercase tracking-tighter text-zinc-900 dark:text-white">Live Articles</h2>
+                        <h2 className="text-2xl font-black font-outfit uppercase tracking-tighter text-zinc-900 dark:text-white">Recent Articles</h2>
                         <Link href="/articles/published" className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">View All Articles</Link>
                     </div>
 
@@ -133,7 +133,7 @@ export default function DashboardPage() {
                                 </div>
                                 <div className="flex items-center gap-4 md:gap-12 shrink-0">
                                     <div className="hidden sm:flex flex-col items-end gap-1">
-                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-700">Analytics</span>
+                                        <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400 dark:text-zinc-700">Views</span>
                                         <span className="text-[13px] font-black text-zinc-900 dark:text-white italic">{article.views}</span>
                                     </div>
                                     <Badge variant="outline" className={`text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] px-2 md:px-3 py-0.5 md:py-1 rounded-full border ${article.status === 'PUBLISHED' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-500 border-emerald-500/20' :
@@ -155,8 +155,8 @@ export default function DashboardPage() {
                 <section className="lg:col-span-4 flex flex-col gap-8">
                     <Card className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] bg-white dark:bg-zinc-950 shadow-none border-zinc-200 dark:border-zinc-800 flex flex-col gap-8 md:gap-10 lg:sticky lg:top-12">
                         <div className="flex flex-col gap-2">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-600">Editorial Intel</span>
-                            <h3 className="text-xl font-bold font-outfit uppercase tracking-tight text-zinc-900 dark:text-white leading-tight">Editorial Focus</h3>
+                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-600">Topics Summary</span>
+                            <h3 className="text-xl font-bold font-outfit uppercase tracking-tight text-zinc-900 dark:text-white leading-tight">Popular Categories</h3>
                         </div>
 
                         <div className="flex flex-col gap-6">
@@ -182,7 +182,7 @@ export default function DashboardPage() {
 
                         <div className="pt-8 border-t border-zinc-100 dark:border-zinc-900 grid grid-cols-2 gap-4">
                             <div className="flex flex-col gap-1">
-                                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-400">Collaborators</span>
+                                <span className="text-[8px] font-black uppercase tracking-widest text-zinc-400">Total Users</span>
                                 <span className="text-xl font-black font-outfit text-zinc-900 dark:text-white tracking-tighter">{dashboardData?.counts?.users || 0}</span>
                             </div>
                             <div className="flex flex-col gap-1">

@@ -291,6 +291,7 @@ export const articlesApi = {
     }).then((res) => handleResponse(res));
   },
   publish: (id) => apiPatch(`/articles/${id}/publish`),
+  toggleStatus: (id, status) => apiPatch(`/articles/${id}`, { status }),
   delete: (id) => apiDelete(`/articles/${id}`)
 };
 

@@ -25,7 +25,9 @@ export const getArticles = async (req, res) => {
 
     // Filter by status (draft | published), default to 'published' for public routes
     if (status) {
-      filter.status = status;
+      if (status !== "all") {
+        filter.status = status;
+      }
     } else {
       filter.status = "published";
     }

@@ -8,21 +8,43 @@
 }
 
 :root {
-  --site-bg: #ffffff;
-  --site-fg: #09090b;
-  --accent: #09090b;
-  --card-bg: #fafafa;
-  --radius-xl: 2.5rem;
-  --radius-lg: 1.5rem;
+  --site-bg: #f9faf7;
+  --site-fg: #1a1c18;
+  --accent: #5d6b33;
+  --card-bg: #ffffff;
+  --radius-xl: 2rem;
+  --radius-lg: 1.25rem;
   --font-outfit: "Outfit", sans-serif;
   --font-inter: "Inter", sans-serif;
+
+  /* Material 3 Sage Dynamic Palette */
+  --m3-primary: #5d6b33;
+  --m3-on-primary: #ffffff;
+  --m3-primary-container: #dfeba8;
+  --m3-on-primary-container: #191e00;
+  --m3-surface: #f9faf7;
+  --m3-surface-card: #ffffff;
+  --m3-surface-low: #f1f2ee;
+  --m3-surface-high: #e5e6e2;
+  --m3-border: #e2e3dd;
 }
 
 .dark {
-  --site-bg: #09090b;
-  --site-fg: #fafafa;
-  --accent: #ffffff;
-  --card-bg: #18181b;
+  --site-bg: #121411;
+  --site-fg: #e2e3dd;
+  --accent: #c2d08a;
+  --card-bg: #1a1c18;
+
+  /* Material 3 Dark Sage Palette */
+  --m3-primary: #c2d08a;
+  --m3-on-primary: #2d340e;
+  --m3-primary-container: #434c1f;
+  --m3-on-primary-container: #dfeba8;
+  --m3-surface: #121411;
+  --m3-surface-card: #1a1c18;
+  --m3-surface-low: #1d1e1b;
+  --m3-surface-high: #272825;
+  --m3-border: #2f312c;
 }
 
 body {
@@ -30,6 +52,27 @@ body {
   color: var(--site-fg);
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
+}
+
+/* Material 3 Tactile Spring Press */
+.android-haptic {
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, border-color 0.2s ease;
+}
+.android-haptic:active {
+  transform: scale(0.97);
+}
+
+/* Material 3 Clean Squircle Tile */
+.android-tile {
+  border-radius: 2rem;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.android-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.08);
+}
+.dark .android-tile:hover {
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
 }
 
 /* Hide scrollbar on mobile devices for a cleaner app-like feel */

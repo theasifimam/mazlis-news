@@ -6,7 +6,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ThemeToggle } from "./ThemeToggle";
 import AuthModal from "./AuthModal";
-import { LogOut, Menu, ArrowLeft } from "lucide-react";
+import { LogOut, Menu, ArrowLeft, Search } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { clearCredentials } from "@/lib/store/authSlice";
 import { useSignoutMutation } from "@/lib/api/authApi";
@@ -16,7 +16,7 @@ import { usePathname } from "next/navigation";
 // Dynamic imports for improved initial load performance
 const Sidebar = dynamic(() => import("./header/Sidebar"), { ssr: false });
 const LogoutConfirm = dynamic(() => import("./header/LogoutConfirm"), {
-  ssr: false
+  ssr: false,
 });
 
 export default function Header() {
@@ -28,7 +28,7 @@ export default function Header() {
 
   const dispatch = useAppDispatch();
   const { user, isAuthenticated, isInitialized } = useAppSelector(
-    (s) => s.auth
+    (s) => s.auth,
   );
   const [signout] = useSignoutMutation();
 
@@ -36,21 +36,14 @@ export default function Header() {
     try {
       await signout().unwrap();
     } catch {
-
-      /* ignore */} finally {
+      /* ignore */
+    } finally {
       dispatch(clearCredentials());
       setIsLogoutConfirmOpen(false);
       setIsMenuOpen(false);
       toast.success("Signed out successfully.");
     }
   };
-
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -59,150 +52,125 @@ export default function Header() {
         now.toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
-          second: "2-digit",
-          hour12: true
-        })
+          hour12: false,
+        }),
       );
     }, 1000);
 
-    const handleEsc = (e) => {
-      if (e.key === "Escape") {
-        setIsMenuOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleEsc);
-
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      clearInterval(timer);
-      window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "auto";
-    };
-  }, [isMenuOpen]);
+    return () => clearInterval(timer);
+  }, []);
 
   const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Articles", href: "/articles" },
-  { label: "About", href: "/about" },
-  ...(isAuthenticated ? [{ label: "Profile", href: "/profile" }] : []),
-  { label: "Search", href: "/search" }];
-
+    { label: "Home", href: "/" },
+    { label: "Articles", href: "/articles" },
+    { label: "About", href: "/about" },
+  ];
 
   const pathname = usePathname();
   const isArticlePage = pathname.includes("/articles/");
-  const isHomePage = pathname === "/";
-
-  const headerBg = "bg-white/80 dark:bg-[#09090b]/80 backdrop-blur-xl";
-  const contentColor = "text-zinc-900 dark:text-white";
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${headerBg}`}>
-        
-        <div className="max-w-350 mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between relative transition-all duration-500">
-          <div className="flex items-center gap-4">
-            {isArticlePage ?
-            <Link
-              href="/"
-              className={`p-2 -ml-2 transition-transform active:scale-90 ${contentColor}`}>
-              
-                <ArrowLeft size={24} strokeWidth={1.5} />
-              </Link> :
-
-            <>
-                <button
-                onClick={() => setIsMenuOpen(true)}
-                className={`p-2 -ml-2 transition-transform active:scale-90 md:hidden ${contentColor}`}>
-                
-                  <Menu size={24} strokeWidth={1.5} />
-                </button>
-                <Link
+      <header className="fixed top-0 left-0 w-full z-50 px-4 md:px-8 pt-4 transition-all duration-300">
+        <div className="max-w-350 mx-auto bg-white/95 dark:bg-[#1a1c18]/95 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 rounded-full px-5 md:px-6 h-14 md:h-16 flex items-center justify-between shadow-md transition-all duration-300">
+          
+          {/* Brand Logo */}
+          <div className="flex items-center gap-3">
+            {isArticlePage ? (
+              <Link
                 href="/"
-                className={`hidden md:block font-outfit font-black text-xl tracking-tighter ${contentColor}`}>
-                
-                  MAZLIS<span className="text-zinc-400">.</span>
+                className="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/60 android-haptic text-slate-800 dark:text-slate-100"
+              >
+                <ArrowLeft size={20} strokeWidth={2} />
+              </Link>
+            ) : (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setIsMenuOpen(true)}
+                  className="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/60 android-haptic md:hidden text-slate-800 dark:text-slate-100"
+                >
+                  <Menu size={20} strokeWidth={2} />
+                </button>
+
+                <Link href="/" className="flex items-center gap-2 group">
+                  <span className="w-8 h-8 rounded-full bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] flex items-center justify-center font-bold text-xs shadow-md shadow-[#5d6b33]/25">
+                    M
+                  </span>
+                  <span className="font-outfit font-black text-xl tracking-tight text-slate-900 dark:text-white">
+                    MAZLIS<span className="text-[#5d6b33] dark:text-[#c2d08a]">.</span>
+                  </span>
                 </Link>
-              </>
-            }
+              </div>
+            )}
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) =>
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`text-[10px] font-black uppercase tracking-[0.25em] transition-all hover:opacity-60 ${contentColor}`}>
-              
-                {link.label}
-              </Link>
-            )}
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-800/50 p-1 rounded-full border border-slate-200/50 dark:border-slate-700/50">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`px-5 py-1.5 rounded-full text-xs font-bold transition-all android-haptic ${
+                    isActive
+                      ? "bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] shadow-sm"
+                      : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Center Section: Logo (Mobile Only) */}
-          <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
-            {(isScrolled || !isHomePage && !isArticlePage) &&
+          {/* User Profile & Actions */}
+          <div className="flex items-center gap-2.5">
             <Link
-              href="/"
-              className="font-outfit font-black text-xl tracking-tighter text-zinc-900 dark:text-white">
-              
-                MAZLIS<span className="text-zinc-400">.</span>
-              </Link> ||
+              href="/search"
+              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-300 android-haptic"
+              title="Search"
+            >
+              <Search size={18} />
+            </Link>
 
-            isArticlePage &&
-            <Link
-              href="/"
-              className="font-outfit font-black text-xl tracking-tighter text-zinc-900 dark:text-white">
-              
-                  MAZLIS<span className="text-zinc-400">.</span>
-                </Link>
-            }
-          </div>
-
-          {/* Right Section: Actions */}
-          <div className="flex items-center gap-2 md:gap-6">
-            <div className="hidden md:flex items-center gap-6">
-              {!isInitialized ?
-              <div
-                className={`w-12 h-3 rounded-full animate-pulse transition-colors ${isScrolled ? "bg-zinc-100 dark:bg-zinc-800" : "bg-white/20"}`} /> :
-
-              isAuthenticated && user ?
-              <div className="flex items-center gap-3">
-                  <Link
+            {!isInitialized ? (
+              <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 animate-pulse" />
+            ) : isAuthenticated && user ? (
+              <div className="flex items-center gap-2">
+                <Link
                   href="/profile"
-                  className={`text-[10px] font-bold uppercase tracking-widest transition-colors hover:text-zinc-500 ${contentColor}`}>
-                  
+                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-700 android-haptic text-xs font-bold text-slate-850 dark:text-slate-200"
+                >
+                  <span className="w-5.5 h-5.5 rounded-full bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] text-[10px] flex items-center justify-center font-black">
+                    {user.fullName?.[0]?.toUpperCase() || "U"}
+                  </span>
+                  <span className="hidden sm:inline">
                     {user.fullName.split(" ")[0]}
-                  </Link>
-                  <button
+                  </span>
+                </Link>
+                <button
                   onClick={() => setIsLogoutConfirmOpen(true)}
-                  className="text-zinc-400 hover:text-red-500 transition-colors">
-                  
-                    <LogOut size={16} />
-                  </button>
-                </div> :
-
+                  className="p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-400 hover:text-red-500 transition-colors android-haptic"
+                  title="Sign out"
+                >
+                  <LogOut size={16} />
+                </button>
+              </div>
+            ) : (
               <button
                 onClick={() => {
                   setAuthTab("signin");
                   setIsAuthOpen(true);
                 }}
-                className={`text-[10px] font-black uppercase tracking-widest transition-colors hover:text-zinc-500 ${contentColor}`}>
-                
-                  Signin
-                </button>
-              }
-              <div
-                className={`w-[1px] h-4 transition-colors ${isScrolled ? "bg-zinc-100 dark:bg-zinc-800" : "bg-white/20"}`} />
-              
-              <ThemeToggle />
-            </div>
+                className="px-5 py-1.5 rounded-full bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] text-xs font-bold shadow-md shadow-[#5d6b33]/20 android-haptic"
+              >
+                Sign In
+              </button>
+            )}
+
+            <div className="w-px h-5 bg-slate-200 dark:bg-slate-800" />
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -220,20 +188,20 @@ export default function Header() {
           setIsAuthOpen(true);
         }}
         navLinks={navLinks}
-        currentTime={currentTime} />
-      
+        currentTime={currentTime}
+      />
 
       <LogoutConfirm
         isOpen={isLogoutConfirmOpen}
         onClose={() => setIsLogoutConfirmOpen(false)}
-        onConfirm={handleLogout} />
-      
+        onConfirm={handleLogout}
+      />
 
       <AuthModal
         isOpen={isAuthOpen}
         onOpenChange={setIsAuthOpen}
-        defaultTab={authTab} />
-      
-    </>);
-
+        defaultTab={authTab}
+      />
+    </>
+  );
 }
