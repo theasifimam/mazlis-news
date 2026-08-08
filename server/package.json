@@ -6,25 +6,13 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec \"tsx\" src/index.ts",
-    "dev": "nodemon --exec \"tsx\" src/index.ts"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/bcrypt": "^6.0.0",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/multer": "^2.1.0",
-    "@types/node": "^25.3.0",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
-    "@types/cookie-parser": "^1.4.10",
-    "@types/nodemailer": "^7.0.11",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -34,7 +22,6 @@
     "mongoose": "^9.2.1",
     "multer": "^2.1.1",
     "nodemailer": "^8.0.2",
-    "nodemon": "^3.1.14",
-    "ts-node": "^10.9.2"
+    "nodemon": "^3.1.14"
   }
 }

@@ -1,0 +1,99 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Clock, Eye } from "lucide-react";
+import { getImageUrl } from "@/lib/config";
+import BookmarkButton from "./BookmarkButton";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default function ArticleCard({
+  article,
+  variant = "horizontal"
+}) {
+  const articleLink = `/articles/${article.slug}-${article.id}`;
+
+  if (variant === "vertical") {
+    return (
+      <div className="flex flex-col gap-4 group cursor-pointer">
+        <div className="relative aspect-16/10 w-full rounded-4xl overflow-hidden bg-zinc-100 dark:bg-[#141417] shadow-sm transition-shadow duration-500 group-hover:shadow-md">
+          <Link href={articleLink} className="block w-full h-full">
+            <Image
+              src={getImageUrl(article.imageUrl)}
+              alt={article.title || "Mazlis News Article"}
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              unoptimized />
+            
+          </Link>
+          <div className="absolute top-3 right-3 z-20">
+            <BookmarkButton articleId={article.id} />
+          </div>
+        </div>
+        <Link href={articleLink} className="flex flex-col gap-2">
+          <h3 className="text-lg font-bold font-outfit leading-snug line-clamp-2 text-zinc-900 dark:text-zinc-100 transition-colors group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
+            {article.title}
+          </h3>
+          <div className="flex items-center gap-3 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+            <span>By {article.author}</span>
+            <span>•</span>
+            <span>{article.date}</span>
+          </div>
+        </Link>
+      </div>);
+
+  }
+
+  return (
+    <div className="flex gap-4 items-center group py-4 relative cursor-pointer">
+      <Link
+        href={articleLink}
+        className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-zinc-100 dark:bg-[#141417] shadow-sm transition-shadow duration-500 group-hover:shadow-md">
+        
+        <Image
+          src={getImageUrl(article.imageUrl)}
+          alt={article.title || "Mazlis News Article"}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          unoptimized />
+        
+      </Link>
+      <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+        <Link href={articleLink}>
+          <h3 className="text-base font-bold font-outfit leading-snug line-clamp-2 text-zinc-900 dark:text-zinc-100 transition-colors group-hover:text-emerald-600 dark:group-hover:text-emerald-400 pr-10">
+            {article.title}
+          </h3>
+        </Link>
+        <div className="flex items-center gap-4 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+          <div className="flex items-center gap-1">
+            <Clock size={12} />
+            <span>{article.date}</span>
+          </div>
+          {article.views &&
+          <div className="flex items-center gap-1">
+              <Eye size={12} />
+              <span>{article.views.toLocaleString()} views</span>
+            </div>
+          }
+        </div>
+      </div>
+      <div className="shrink-0">
+        <BookmarkButton
+          articleId={article.id}
+          className="bg-transparent! text-zinc-400! hover:text-zinc-900! dark:hover:text-white! p-2! border-none! shadow-none!" />
+        
+      </div>
+    </div>);
+
+}
