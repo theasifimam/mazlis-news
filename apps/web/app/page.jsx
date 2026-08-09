@@ -8,6 +8,7 @@ import CategoryFilterBar from "@/components/home/CategoryFilterBar";
 import BreakingNews from "@/components/home/BreakingNews";
 import TechnicalAnalysis from "@/components/home/TechnicalAnalysis";
 import NewsletterBanner from "@/components/home/NewsletterBanner";
+import TickerTape from "@/components/home/TickerTape";
 import { useGetArticlesQuery } from "@/lib/api/articlesApi";
 import { format } from "date-fns";
 
@@ -51,8 +52,9 @@ export default function HomePage() {
   }, [formattedArticles]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500 pb-16">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500">
       <Header />
+      <TickerTape />
 
       <main className="flex-1 w-full pb-20 flex flex-col">
         {/* Spotlight Hero Section */}

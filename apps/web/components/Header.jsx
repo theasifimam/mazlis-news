@@ -96,7 +96,7 @@ export default function Header() {
                   <span className="w-8 h-8 rounded-full bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] flex items-center justify-center font-bold text-xs shadow-md shadow-[#5d6b33]/25">
                     M
                   </span>
-                  <span className="font-outfit font-black text-xl tracking-tight text-slate-900 dark:text-white">
+                  <span className="hidden min-[380px]:inline-block font-outfit font-black text-xl tracking-tight text-slate-900 dark:text-white">
                     MAZLIS<span className="text-[#5d6b33] dark:text-[#c2d08a]">.</span>
                   </span>
                 </Link>
@@ -128,7 +128,7 @@ export default function Header() {
           <div className="flex items-center gap-2.5">
             <Link
               href="/search"
-              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-300 android-haptic"
+              className="hidden sm:inline-flex p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/60 text-slate-600 dark:text-slate-300 android-haptic"
               title="Search"
             >
               <Search size={18} />
@@ -140,7 +140,7 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-700 android-haptic text-xs font-bold text-slate-850 dark:text-slate-200"
+                  className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-700 android-haptic text-xs font-bold text-slate-850 dark:text-slate-200"
                 >
                   <span className="w-5.5 h-5.5 rounded-full bg-[#5d6b33] dark:bg-[#c2d08a] text-white dark:text-[#2d340e] text-[10px] flex items-center justify-center font-black">
                     {user.fullName?.[0]?.toUpperCase() || "U"}

@@ -24,10 +24,10 @@ export default function AboutPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans transition-colors duration-500 pb-24">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans transition-colors duration-500">
             <Header />
 
-            <main className="flex-1 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-24 md:pt-28">
+            <main className="flex-1 w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-24 md:pt-28 pb-20">
                 {/* Dateline Bar */}
                 <div className="flex items-center justify-between pb-4 mb-10 border-b border-zinc-200/60 dark:border-zinc-800/60 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400">
                     <div className="flex items-center gap-2 text-emerald-500">

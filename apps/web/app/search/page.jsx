@@ -70,10 +70,10 @@ export default function SearchPage() {
   [displayTopics, activeTopicId]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500 pb-24">
+    <div className="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-500">
             <Header />
 
-            <main className="flex-1 w-full flex flex-col">
+            <main className="flex-1 w-full flex flex-col pb-20">
                 <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full flex flex-col gap-10">
                     <SearchHero />
 

@@ -105,10 +105,10 @@ export default function ArticleClient({ slug }) {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans transition-colors duration-500 pb-24">
+    <div className="min-h-screen bg-background text-foreground font-sans transition-colors duration-500">
             <Header />
 
-            <main className="flex flex-col items-center w-full pt-24 md:pt-28">
+            <main className="flex flex-col items-center w-full pt-24 md:pt-28 pb-20">
                 {/* Article Open Header */}
                 <div className="w-full max-w-4xl px-6 flex flex-col gap-6 mb-10">
                     <Link href="/articles" className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors uppercase tracking-widest w-fit">

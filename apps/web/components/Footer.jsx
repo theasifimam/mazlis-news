@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-white dark:bg-[#191f13] text-[#1b2111] dark:text-[#f2f5e8] pt-12 pb-8 px-6 lg:px-12 border-t border-[#e1e7d4] dark:border-[#2d3624] mt-auto rounded-t-[2.5rem] shadow-sm">
+    <footer className="w-full bg-white dark:bg-[#191f13] text-[#1b2111] dark:text-[#f2f5e8] pt-12 pb-28 md:pb-12 px-6 lg:px-12 border-t border-[#e1e7d4] dark:border-[#2d3624] mt-auto">
       <div className="max-w-350 mx-auto flex flex-col lg:flex-row justify-between items-start gap-12 border-b border-[#e1e7d4] dark:border-[#2d3624] pb-10">
 
         {/* Brand */}
